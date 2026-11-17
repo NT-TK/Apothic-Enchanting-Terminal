@@ -1,0 +1,42 @@
+# Gradle / NeoForge ModDevGradle
+.gradle/
+.gradle-home/
+build/
+run/
+runs/
+run-data/
+localRuntime/
+prepareRuns/
+src/generated/
+
+# Logs
+logs/
+*.log
+hs_err_pid*.log
+replay_pid*.log
+
+# Built artifacts (attach these to a GitHub Release instead)
+*.jar
+!gradle/wrapper/gradle-wrapper.jar
+
+# IDEs
+.idea/
+*.iml
+*.ipr
+*.iws
+out/
+.vscode/
+.classpath
+.project
+.settings/
+bin/
+.eclipse/
+
+# OS
+.DS_Store
+Thumbs.db
+desktop.ini
+
+# Local-only overrides
+local.properties
+.env
