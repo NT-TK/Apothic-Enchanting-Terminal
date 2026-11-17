@@ -1,0 +1,20 @@
+{
+  "item.apothic_enchanting_terminal.library_monitor": "Terminal de Biblioteca",
+  "message.apothic_enchanting_terminal.offline": "A rede ME está offline",
+  "message.apothic_enchanting_terminal.no_library": "Nenhuma biblioteca conectada por um Barramento de Armazenamento",
+  "item.apothic_enchanting_terminal.wireless_library_terminal": "Terminal de Biblioteca Sem Fio",
+  "message.apothic_enchanting_terminal.no_power": "Sem energia",
+  "key.ae2.wireless_library_terminal": "Abrir o Terminal de Biblioteca Sem Fio",
+  "gui.apothic_enchanting_terminal.search": "Pesquisar...",
+  "gui.apothic_enchanting_terminal.max_level": "Nível máximo: %s",
+  "gui.apothic_enchanting_terminal.points": "Pontos: %s / %s",
+  "gui.apothic_enchanting_terminal.extracting": "Extraindo: %s",
+  "gui.apothic_enchanting_terminal.cost": "Custo: %s pontos",
+  "gui.apothic_enchanting_terminal.unavailable": "Não é possível extrair mais",
+  "gui.apothic_enchanting_terminal.library_terminal": "Terminal de Biblioteca",
+  "gui.apothic_enchanting_terminal.no_library": "Nenhuma biblioteca conectada",
+  "gui.apothic_enchanting_terminal.need_book": "Segure um livro encantado ou nada",
+  "gui.apothic_enchanting_terminal.library_title": "Biblioteca",
+  "gui.apothic_enchanting_terminal.filter": "Filtro de Encantamento",
+  "gui.apothic_enchanting_terminal.filter_hint": "Coloque um item para mostrar apenas os encantamentos que ele pode ter"
+}

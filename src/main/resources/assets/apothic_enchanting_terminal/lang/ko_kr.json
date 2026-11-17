@@ -1,0 +1,20 @@
+{
+  "item.apothic_enchanting_terminal.library_monitor": "도서관 터미널",
+  "message.apothic_enchanting_terminal.offline": "ME 네트워크가 오프라인입니다",
+  "message.apothic_enchanting_terminal.no_library": "저장 버스로 연결된 도서관이 없습니다",
+  "item.apothic_enchanting_terminal.wireless_library_terminal": "무선 도서관 터미널",
+  "message.apothic_enchanting_terminal.no_power": "전력이 부족합니다",
+  "key.ae2.wireless_library_terminal": "무선 도서관 터미널 열기",
+  "gui.apothic_enchanting_terminal.search": "검색...",
+  "gui.apothic_enchanting_terminal.max_level": "최대 레벨: %s",
+  "gui.apothic_enchanting_terminal.points": "포인트: %s / %s",
+  "gui.apothic_enchanting_terminal.extracting": "추출: %s",
+  "gui.apothic_enchanting_terminal.cost": "비용: %s 포인트",
+  "gui.apothic_enchanting_terminal.unavailable": "더 이상 추출할 수 없습니다",
+  "gui.apothic_enchanting_terminal.library_terminal": "도서관 터미널",
+  "gui.apothic_enchanting_terminal.no_library": "연결된 도서관이 없습니다",
+  "gui.apothic_enchanting_terminal.need_book": "마법이 부여된 책이나 빈 손으로 조작하세요",
+  "gui.apothic_enchanting_terminal.library_title": "도서관",
+  "gui.apothic_enchanting_terminal.filter": "마법 부여 필터",
+  "gui.apothic_enchanting_terminal.filter_hint": "아이템을 놓으면 해당 아이템에 부여될 수 있는 마법만 표시합니다"
+}

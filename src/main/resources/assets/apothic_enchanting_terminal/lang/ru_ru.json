@@ -1,0 +1,20 @@
+{
+  "item.apothic_enchanting_terminal.library_monitor": "Терминал библиотеки",
+  "message.apothic_enchanting_terminal.offline": "Сеть ME отключена",
+  "message.apothic_enchanting_terminal.no_library": "Нет библиотеки, подключённой через шину хранения",
+  "item.apothic_enchanting_terminal.wireless_library_terminal": "Беспроводной терминал библиотеки",
+  "message.apothic_enchanting_terminal.no_power": "Недостаточно энергии",
+  "key.ae2.wireless_library_terminal": "Открыть беспроводной терминал библиотеки",
+  "gui.apothic_enchanting_terminal.search": "Поиск...",
+  "gui.apothic_enchanting_terminal.max_level": "Макс. уровень: %s",
+  "gui.apothic_enchanting_terminal.points": "Очки: %s / %s",
+  "gui.apothic_enchanting_terminal.extracting": "Извлечение: %s",
+  "gui.apothic_enchanting_terminal.cost": "Стоимость: %s очков",
+  "gui.apothic_enchanting_terminal.unavailable": "Больше извлечь нельзя",
+  "gui.apothic_enchanting_terminal.library_terminal": "Терминал библиотеки",
+  "gui.apothic_enchanting_terminal.no_library": "Библиотека не подключена",
+  "gui.apothic_enchanting_terminal.need_book": "Возьмите зачарованную книгу или пустую руку",
+  "gui.apothic_enchanting_terminal.library_title": "Библиотека",
+  "gui.apothic_enchanting_terminal.filter": "Фильтр зачарований",
+  "gui.apothic_enchanting_terminal.filter_hint": "Положите предмет, чтобы показывать только доступные ему зачарования"
+}

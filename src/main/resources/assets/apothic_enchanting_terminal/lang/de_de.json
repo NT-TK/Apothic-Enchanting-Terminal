@@ -1,0 +1,20 @@
+{
+  "item.apothic_enchanting_terminal.library_monitor": "Bibliotheksterminal",
+  "message.apothic_enchanting_terminal.offline": "Das ME-Netzwerk ist offline",
+  "message.apothic_enchanting_terminal.no_library": "Keine Bibliothek über einen Speicherbus verbunden",
+  "item.apothic_enchanting_terminal.wireless_library_terminal": "Drahtloses Bibliotheksterminal",
+  "message.apothic_enchanting_terminal.no_power": "Keine Energie",
+  "key.ae2.wireless_library_terminal": "Drahtloses Bibliotheksterminal öffnen",
+  "gui.apothic_enchanting_terminal.search": "Suchen...",
+  "gui.apothic_enchanting_terminal.max_level": "Max. Stufe: %s",
+  "gui.apothic_enchanting_terminal.points": "Punkte: %s / %s",
+  "gui.apothic_enchanting_terminal.extracting": "Entnehme: %s",
+  "gui.apothic_enchanting_terminal.cost": "Kosten: %s Punkte",
+  "gui.apothic_enchanting_terminal.unavailable": "Es kann nichts weiter entnommen werden",
+  "gui.apothic_enchanting_terminal.library_terminal": "Bibliotheksterminal",
+  "gui.apothic_enchanting_terminal.no_library": "Keine Bibliothek verbunden",
+  "gui.apothic_enchanting_terminal.need_book": "Verzaubertes Buch oder leere Hand halten",
+  "gui.apothic_enchanting_terminal.library_title": "Bibliothek",
+  "gui.apothic_enchanting_terminal.filter": "Verzauberungsfilter",
+  "gui.apothic_enchanting_terminal.filter_hint": "Gegenstand platzieren, um nur die möglichen Verzauberungen anzuzeigen"
+}

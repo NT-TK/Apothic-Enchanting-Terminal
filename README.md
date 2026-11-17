@@ -70,6 +70,24 @@ AE2WTLib 統合込みで実行時テストする場合:
 
 AE2WTLib を**入れない**状態を再現する場合は、`-PwithWtlib` を付けずに実行します。
 
+## 対応言語
+
+| ロケール | 言語 |
+| --- | --- |
+| `en_us` | English (基準) |
+| `ja_jp` | 日本語 |
+| `zh_cn` | 简体中文 |
+| `zh_tw` | 繁體中文 |
+| `ko_kr` | 한국어 |
+| `de_de` | Deutsch |
+| `fr_fr` | Français |
+| `es_es` | Español |
+| `pt_br` | Português (Brasil) |
+| `ru_ru` | Русский |
+
+翻訳を追加する場合は `src/main/resources/assets/apothic_enchanting_terminal/lang/<ロケール>.json` を
+`en_us.json` と同じキーで追加するだけです（キーが欠けている場合は英語が表示されます）。
+
 ## 実装メモ
 
 - 図書館のポイントは Apothic 本家と同じ `2^(Lv-1)` として扱い、預け入れ時に

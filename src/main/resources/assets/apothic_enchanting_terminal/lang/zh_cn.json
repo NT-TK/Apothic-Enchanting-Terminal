@@ -1,0 +1,20 @@
+{
+  "item.apothic_enchanting_terminal.library_monitor": "图书馆终端",
+  "message.apothic_enchanting_terminal.offline": "ME网络已离线",
+  "message.apothic_enchanting_terminal.no_library": "没有通过存储总线连接的图书馆",
+  "item.apothic_enchanting_terminal.wireless_library_terminal": "无线图书馆终端",
+  "message.apothic_enchanting_terminal.no_power": "电力不足",
+  "key.ae2.wireless_library_terminal": "打开无线图书馆终端",
+  "gui.apothic_enchanting_terminal.search": "搜索...",
+  "gui.apothic_enchanting_terminal.max_level": "最高等级：%s",
+  "gui.apothic_enchanting_terminal.points": "点数：%s / %s",
+  "gui.apothic_enchanting_terminal.extracting": "取出：%s",
+  "gui.apothic_enchanting_terminal.cost": "消耗：%s点数",
+  "gui.apothic_enchanting_terminal.unavailable": "无法继续取出",
+  "gui.apothic_enchanting_terminal.library_terminal": "图书馆终端",
+  "gui.apothic_enchanting_terminal.no_library": "未连接图书馆",
+  "gui.apothic_enchanting_terminal.need_book": "请手持附魔书或空手",
+  "gui.apothic_enchanting_terminal.library_title": "图书馆",
+  "gui.apothic_enchanting_terminal.filter": "附魔筛选",
+  "gui.apothic_enchanting_terminal.filter_hint": "放置物品后，只显示该物品可获得的附魔"
+}
