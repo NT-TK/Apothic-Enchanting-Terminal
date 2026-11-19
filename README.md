@@ -20,7 +20,8 @@ deposited and extracted from any AE2 terminal, storage bus or storage cell setup
   WUT (Universal Terminal); without AE2WTLib the mod falls back to its own standalone terminal.
 - **Storage bus integration**
   The library is exposed as ME storage. Books are converted into the library's points and books are
-  created from points when extracted. Priorities follow the normal AE2 rules (higher priority wins).
+  created from points when extracted. A book with several enchantments is split into points for every
+  enchantment it carries. Priorities follow the normal AE2 rules (higher priority wins).
 - **Library Monitor** (AE2 part)
   Shows the state of the connected library on the part itself.
 
@@ -100,9 +101,9 @@ Omit `-PwithWtlib` to test the setup without AE2WTLib installed.
 
 ## Known limitations
 
-- Books with multiple enchantments cannot be represented by a single AE key, so they are not
-  accepted through the storage bus (depositing them in the Library Terminal still works).
 - Books are converted into points, so extraction does not reproduce the original book.
+- When a multi-enchantment book is inserted, enchantments that are already at their point cap gain
+  nothing (the excess is discarded, exactly like the library's own deposit).
 
 ## License
 
@@ -130,7 +131,9 @@ AE2 のネットワーク越しに [Apothic Enchanting](https://www.curseforge.c
   AE2WTLib が無い環境では、MOD 内蔵の単体端末として動作します。
 - **ストレージバス連携**
   図書館を ME ストレージとして公開します。本はポイントに変換されて保存され、
-  取り出し時はポイントから本が生成されます。優先度は AE2 の通常ルール(高いほど優先)に従います。
+  取り出し時はポイントから本が生成されます。複数エンチャントが付いた本は、
+  含まれる全エンチャントへポイントを分解して預け入れます。
+  優先度は AE2 の通常ルール(高いほど優先)に従います。
 - **図書館モニター**(AE2 パーツ)
   接続先の図書館の状態をパネル上に表示します。
 
@@ -208,9 +211,9 @@ AE2WTLib を**入れない**状態を再現する場合は、`-PwithWtlib` を�
 
 ## 既知の制限
 
-- 複数エンチャントが付いた本は AE2 の 1 キーで表現できないため、ストレージバス経由では預け入れられません
-  (図書館ターミナルからは預け入れ可能)。
 - 本はポイントに変換されるため、取り出すと同一の本(同じ組み合わせ)には戻りません。
+- 複数エンチャント本を預け入れる際、すでにポイント上限に達しているエンチャントには
+  ポイントが入りません(超過分は切り捨て。図書館本体の預け入れと同じ挙動)。
 
 ## ライセンス
 

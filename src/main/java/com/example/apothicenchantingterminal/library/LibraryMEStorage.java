@@ -18,6 +18,9 @@ import net.minecraft.world.item.enchantment.EnchantmentHelper;
 import net.minecraft.world.item.enchantment.ItemEnchantments;
 import net.minecraft.world.level.Level;
 
+import java.util.ArrayList;
+import java.util.List;
+
 /**
  * AE2上で図書館のポイントをエンチャント本として公開する仮想ストレージ。
  * Applied Apothic Enchantingのコードには依存せず、Apothicの公開マップ/APIだけを使う。
@@ -31,40 +34,48 @@ public final class LibraryMEStorage implements MEStorage {
 
     @Override
     public boolean isPreferredStorageFor(AEKey what, IActionSource source) {
-        return decode(what) != null;
+        return decodeAll(what) != null;
     }
 
+    /**
+     * 本をポイントへ分解して受け入れる。
+     * 複数エンチャントが付いた本は、含まれる全エンチャントへポイントを配分する
+     * (Apothic の depositBook と同じ振る舞い)。
+     */
     @Override
     public long insert(AEKey what, long amount, Actionable mode, IActionSource source) {
-        Decoded book = decode(what);
-        if (book == null || amount <= 0) return 0;
+        List<Decoded> parts = decodeAll(what);
+        if (parts == null || amount <= 0) return 0;
 
-        Holder<Enchantment> ench = book.enchantment();
-        int bookLevel = book.level();
-        long cost = EnchLibraryTile.levelToPoints(bookLevel);
-        if (cost <= 0) return 0;
-
-        Object2IntMap<Holder<Enchantment>> points = library.getPointsMap();
-        Object2IntMap<Holder<Enchantment>> maxLevels = library.getLevelsMap();
-
-        int current = points.getInt(ench);
-        // 図書館の総ポイント上限(基本=16Lv相当、エンダー=31Lv相当)。
-        // 預け入れの上限は「解放済み最大レベル」ではなく、この総量で決まる。
         int maxPoints = LibrarySnapshot.capOf(library);
-        int known = maxLevels.getInt(ench);
-        int cap = library.getEnchantmentCap(ench);
 
-        // 残りポイントで受け入れられる冊数
-        long byPoints = Math.max(0L, ((long) maxPoints - current) / cost);
-        // Apothic の depositBook は、ポイントが満杯でも「預けたことのある最大レベル」を
-        // 上げるために本を消費する。その場合だけ 1 冊受け入れる。
-        long accepted = byPoints > 0
-            ? Math.min(amount, byPoints)
-            : (bookLevel > known && known < cap ? 1 : 0);
+        // 1冊分の余地があるエンチャントが1つでもあれば、その冊数まで受け入れる。
+        // (分解先の一部が満杯でも、他のエンチャントにポイントが入るため)
+        long capacity = 0;
+        boolean raisesLevel = false;
+        for (Decoded part : parts) {
+            long cost = EnchLibraryTile.levelToPoints(part.level());
+            if (cost <= 0) continue;
+            long room = Math.max(0L, ((long) maxPoints - pointsOf(part)) / cost);
+            capacity = Math.max(capacity, room);
+            raisesLevel |= raisesLevelOf(part);
+        }
+
+        // ポイントが満杯でも、Apothic の depositBook は「預けたことのある最大レベル」を
+        // 上げるために本を消費する。その場合は1冊だけ受け入れる。
+        long accepted = capacity > 0 ? Math.min(amount, capacity) : (raisesLevel ? 1 : 0);
 
         if (accepted > 0 && mode == Actionable.MODULATE) {
-            points.put(ench, (int) Math.min(maxPoints, current + accepted * cost));
-            maxLevels.put(ench, Math.min(cap, Math.max(known, bookLevel)));
+            Object2IntMap<Holder<Enchantment>> points = library.getPointsMap();
+            Object2IntMap<Holder<Enchantment>> maxLevels = library.getLevelsMap();
+            for (Decoded part : parts) {
+                long cost = EnchLibraryTile.levelToPoints(part.level());
+                if (cost <= 0) continue;
+                points.put(part.enchantment(), (int) Math.min(maxPoints, pointsOf(part) + accepted * cost));
+                maxLevels.put(part.enchantment(),
+                    Math.min(library.getEnchantmentCap(part.enchantment()),
+                        Math.max(maxLevels.getInt(part.enchantment()), part.level())));
+            }
             library.setChanged();
             Level level = library.getLevel();
             if (level != null && !level.isClientSide) {
@@ -77,7 +88,7 @@ public final class LibraryMEStorage implements MEStorage {
 
     @Override
     public long extract(AEKey what, long amount, Actionable mode, IActionSource source) {
-        Decoded book = decode(what);
+        Decoded book = decodeSingle(what);
         if (book == null || amount <= 0) return 0;
         // 図書館がまだ知らないレベル(預けたことのないレベル)は取り出せない(Apothic の canExtract と同じ)
         if (book.level() > library.getMax(book.enchantment())) return 0;
@@ -116,7 +127,31 @@ public final class LibraryMEStorage implements MEStorage {
         return net.minecraft.network.chat.Component.translatable("container.apothic_enchanting.library");
     }
 
-    private Decoded decode(AEKey key) {
+    private int pointsOf(Decoded part) {
+        return library.getPointsMap().getInt(part.enchantment());
+    }
+
+    /** まだ預けたことのないレベルなら、1冊使って解放レベルを上げられる。 */
+    private boolean raisesLevelOf(Decoded part) {
+        int known = library.getLevelsMap().getInt(part.enchantment());
+        return part.level() > known && known < library.getEnchantmentCap(part.enchantment());
+    }
+
+    /** エンチャント本なら含まれるエンチャント(レベル1以上)を全部返す。本でなければ null。 */
+    private List<Decoded> decodeAll(AEKey key) {
+        if (!(key instanceof AEItemKey item) || !item.getReadOnlyStack().is(Items.ENCHANTED_BOOK)) return null;
+        var enchants = EnchantmentHelper.getEnchantmentsForCrafting(item.getReadOnlyStack());
+        if (enchants.isEmpty()) return null;
+        List<Decoded> parts = new ArrayList<>(enchants.size());
+        for (var entry : enchants.entrySet()) {
+            if (entry.getIntValue() <= 0) continue;
+            parts.add(new Decoded(entry.getKey(), entry.getIntValue()));
+        }
+        return parts.isEmpty() ? null : parts;
+    }
+
+    /** 取り出しは、一覧に出している単一エンチャント本のキーだけを対象にする。 */
+    private Decoded decodeSingle(AEKey key) {
         if (!(key instanceof AEItemKey item) || !item.getReadOnlyStack().is(Items.ENCHANTED_BOOK)) return null;
         var enchants = EnchantmentHelper.getEnchantmentsForCrafting(item.getReadOnlyStack());
         if (enchants.size() != 1) return null;
